@@ -3,6 +3,7 @@ import ipywidgets as widgets
 from ipywidgets import HBox, VBox, Layout
 from IPython.display import display
 from IPython.display import clear_output
+import os
 
 import mysql.connector
 import pandas as pd
@@ -48,7 +49,7 @@ def menu():
         global date, folders, parambox
         clear_output()
 
-        mydb = database_connection("193.146.75.213", "elval_raw", "webuser", "cyb3rVal")
+        mydb = database_connection(os.environ['DB_HOST'], os.environ['DB_NAME'], os.environ['DB_USER'], os.environ['DB_PASS'])
         myresult = execute_query(mydb, "SHOW COLUMNS FROM %s" % v['new'])
         row = [item for item in myresult['Field']]
         mydb.close()
@@ -81,7 +82,7 @@ def menu():
         description='End Date',
         disabled=False
     )
-    mydb = database_connection("193.146.75.213", "elval_raw", "webuser", "cyb3rVal")
+    mydb = database_connection(os.environ['DB_HOST'], os.environ['DB_NAME'], os.environ['DB_USER'], os.environ['DB_PASS'])
     myresult = execute_query(mydb, "SHOW TABLES")
     row = [item for item in myresult['Tables_in_elval_raw']]
     mydb.close()
@@ -111,7 +112,7 @@ def menu():
         with out:
             clear_output()
             if tables.value[0] != None and parambox.value[0] != None:
-                mydb = database_connection("193.146.75.213", "elval_raw", "webuser", "cyb3rVal")
+                mydb = database_connection(os.environ['DB_HOST'], os.environ['DB_NAME'], os.environ['DB_USER'], os.environ['DB_PASS'])
                 result = execute_query(mydb, define_query(tables.value[0], parambox.value, "date", ini_date.value, end_date.value))
 
                 mydb.close()
