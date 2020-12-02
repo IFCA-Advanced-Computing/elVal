@@ -1,0 +1,8 @@
+mysql
+mysql-connector
+mysqlclient
+pandas
+matplotlib
+glidertools
+cmocean
+xarray
