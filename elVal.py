@@ -36,10 +36,10 @@ def execute_query(mydb, query):
 def define_query(table, param_list, date_column, date_ini, date_end):
     params = ''
     if len(param_list) == 1:
-        params = param_list[0]
+        params = '`' + param_list[0] + '`'
     else:
         for e in param_list:
-            params = params + e + ','
+            params = params + '`' + e + '`,'
         params = params[0:-1]
     if date_ini == None or date_end == None:
         query = "SELECT %s, %s FROM %s"% (date_column, params, table)
